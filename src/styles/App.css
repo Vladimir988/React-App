@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 #root {
@@ -15,7 +16,17 @@
 
 .post {
     display: flex;
+    align-items: center;
     padding: 15px;
     border: 2px solid teal;
     margin-top: 15px;
+}
+
+.post__content {
+    flex-grow: 1;
+}
+
+.post__content strong {
+    display: block;
+    margin-bottom: 6px;
 }

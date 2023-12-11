@@ -1,9 +1,8 @@
 import React, {useMemo, useState} from 'react';
 import './styles/App.css';
-import PostList from './components/PostList';
 import PostForm from "./components/PostForm";
-import MySelect from "./components/Ui/select/MySelect";
-import MyInput from "./components/Ui/input/MyInput";
+import PostFilter from './components/PostFilter';
+import PostList from './components/PostList';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -11,21 +10,19 @@ function App() {
     {id: 2, title: 'A Javascript 2', body: 'B Description 2'},
     {id: 3, title: 'C Javascript 3', body: 'A Description 3'},
   ]);
-
-  const [selectedSort, setSelectedSort] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState({sort: '', query: ''});
 
   const sortedPosts = useMemo(() => {
-    if(selectedSort) {
-      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]));
+    if(filter.sort) {
+      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
     }
 
     return posts;
-  }, [selectedSort, posts]);
+  }, [filter.sort, posts]);
 
   const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()));
-  }, [searchQuery, sortedPosts]);
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()));
+  }, [filter.query, sortedPosts]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -35,27 +32,13 @@ function App() {
     setPosts(posts.filter(p => p.id !== postId));
   };
 
-  const sortPosts = (sort) => {
-    setSelectedSort(sort);
-  };
-
   return (
     <div className="App">
       <PostForm create={createPost} />
       <hr style={{margin:'20px 0'}} />
-      <MyInput
-        value={searchQuery}
-        onChange={e => setSearchQuery(e.target.value)}
-        placeholder='Search...'
-      />
-      <MySelect
-        value={selectedSort}
-        onChange={sortPosts}
-        defaultValue='Filter by'
-        options={[
-          {value: 'title', name: 'Filter by name'},
-          {value: 'body', name: 'Filter by description'}
-        ]}
+      <PostFilter
+        filter={filter}
+        setFilter={setFilter}
       />
       {posts.length
         ? <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Posts list:' />

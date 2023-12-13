@@ -33,7 +33,7 @@
 }
 
 .enter {
-    transform: translateX(-350px);
+    transform: translateX(-100%);
 }
 
 .enter-active {
@@ -46,6 +46,6 @@
 }
 
 .exit-active {
-    transform: translateX(-350px);
+    transform: translateX(-100%);
     transition: all 500ms ease-in;
 }

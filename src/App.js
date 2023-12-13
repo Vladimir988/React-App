@@ -1,4 +1,5 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import './styles/App.css';
 import PostForm from "./components/PostForm";
 import PostFilter from './components/PostFilter';
@@ -6,13 +7,16 @@ import PostList from './components/PostList';
 import MyModal from "./components/Ui/modal/MyModal";
 import MyButton from "./components/Ui/button/MyButton";
 import {usePosts} from "./hooks/usePosts";
-import axios from "axios";
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);

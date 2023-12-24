@@ -50,36 +50,3 @@
     transform: translateX(-100%);
     transition: all 500ms ease-in;
 }
-
-.pagination {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.btn {
-    padding: 6px 10px;
-    width: calc(10% - 9px);
-    min-width: 50px;
-    border: 1px solid green;
-    display: inline-block;
-    text-align: center;
-    line-height: 1;
-    font-size: 16px;
-    cursor: pointer;
-    -webkit-transition: 0.4s;
-    -moz-transition: 0.4s;
-    -ms-transition: 0.4s;
-    -o-transition: 0.4s;
-    transition: 0.4s;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-}
-
-.btn.active,
-.btn:hover {
-    background: green;
-    color: #fff;
-}

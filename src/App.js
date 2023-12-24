@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -38,6 +38,10 @@ function App() {
 
   const removePost = (postId) => {
     setPosts(posts.filter(p => p.id !== postId));
+  };
+
+  const changePage = (page) => {
+    setPage(page);
   };
 
   return (
@@ -62,7 +66,7 @@ function App() {
       }
       <div className="pagination">
         {pagesArray.map(p =>
-          <span key={p} className={page === p ? 'btn active' : 'btn'} onClick={() => setPage(p)}>{p}</span>
+          <span key={p} className={page === p ? 'btn active' : 'btn'} onClick={() => changePage(p)}>{p}</span>
         )}
       </div>
     </div>

@@ -7,6 +7,9 @@ import Posts from "./pages/Posts";
 function App() {
   return (
     <BrowserRouter>
+      <div className="navbar">
+
+      </div>
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/posts" element={<Posts />} />

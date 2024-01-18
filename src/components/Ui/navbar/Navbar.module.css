@@ -1,0 +1,37 @@
+.navbar {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: lightgrey;
+  list-style-type: none;
+  gap: 15px;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+.item a {
+  color: tomato;
+  text-decoration: none;
+  position: relative;
+}
+
+.item a:before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: tomato;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -ms-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.item a:hover:before {
+  width: 100%;
+  left: 0;
+}

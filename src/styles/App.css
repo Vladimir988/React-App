@@ -8,12 +8,11 @@
 #root {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
-.App {
-    width: 800px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.app {
+    padding: 10px;
 }
 
 .post {

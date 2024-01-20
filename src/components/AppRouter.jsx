@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import Home from "../../pages/Home";
-import About from "../../pages/About";
-import Posts from "../../pages/Posts";
-import NotFound from "../../pages/NotFound";
-import SinglePost from "../../pages/SinglePost";
+import Home from "../pages/Home";
+import About from "../pages/About";
+import Posts from "../pages/Posts";
+import NotFound from "../pages/NotFound";
+import SinglePost from "../pages/SinglePost";
 
 const AppRouter = () => {
   return (

@@ -55,3 +55,16 @@
     transform: translateX(-100%);
     transition: all 500ms ease-in;
 }
+
+.comments .item {
+    padding: 10px 15px;
+    border: 1px solid grey;
+    margin-bottom: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.comments .item p:not(:last-child) {
+    margin-bottom: 10px;
+}

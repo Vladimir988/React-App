@@ -6,7 +6,7 @@ import MyModal from "../components/Ui/modal/MyModal";
 import MyButton from "../components/Ui/button/MyButton";
 import Loader from "../components/Ui/loader/Loader";
 import {usePosts} from "../hooks/usePosts";
-import PostService from "../Services/PostService";
+import PostService from "../services/PostService";
 import {useFetching} from "../hooks/useFetching";
 import {getPageCount} from "../utils/pages";
 import Pagination from "../components/Ui/pagination/Pagination";

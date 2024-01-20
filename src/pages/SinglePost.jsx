@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import PostService from "../Services/PostService";
+import PostService from "../services/PostService";
 import {useFetching} from "../hooks/useFetching";
 import Loader from "../components/Ui/loader/Loader";
 
@@ -37,7 +37,7 @@ const SinglePost = () => {
         ? <Loader />
         : <div className="comments">
           {comments.map(comment =>
-            <div className="item">
+            <div key={comment.id} className="item">
               <p className="name"><b>Name:</b> {comment.name}</p>
               <p className="email"><b>Email:</b> {comment.email}</p>
               <p className="comment"><b>Comment:</b> {comment.body}</p>

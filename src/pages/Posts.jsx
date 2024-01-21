@@ -9,8 +9,8 @@ import {usePosts} from "../hooks/usePosts";
 import PostService from "../services/PostService";
 import {useFetching} from "../hooks/useFetching";
 import {getPageCount} from "../utils/pages";
-import Pagination from "../components/Ui/pagination/Pagination";
 import {useObserver} from "../hooks/useObserver";
+import MySelect from "../components/Ui/select/MySelect";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -33,7 +33,7 @@ function Posts() {
 
   useEffect(() => {
     fetchPosts(limit, page);
-  }, [page]);
+  }, [page, limit]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -42,10 +42,6 @@ function Posts() {
 
   const removePost = (postId) => {
     setPosts(posts.filter(p => p.id !== postId));
-  };
-
-  const changePage = (page) => {
-    setPage(page);
   };
 
   return (
@@ -61,17 +57,23 @@ function Posts() {
         filter={filter}
         setFilter={setFilter}
       />
+      <MySelect
+        value={limit}
+        onChange={value => setLimit(value)}
+        defaultValue='Posts by page'
+        options={[
+          {value: 5, name: '5'},
+          {value: 10, name: '10'},
+          {value: 15, name: '15'},
+          {value: -1, name: 'All'}
+        ]}
+      />
       {postError &&
         <h1 style={{textAlign:'center', marginTop: '15px'}}>Error hapened!!! <br/> {postError}</h1>
       }
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Posts list:' />
-      <div ref={lastElement} style={{height:'20px',background:'red'}}></div>
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Posts list:' lastElement={lastElement} />
+      <div ref={lastElement} style={{height:'0',background:'transparent'}}></div>
       {isPostsLoading && <Loader /> }
-      <Pagination
-        totalPages={totalPages}
-        page={page}
-        changePage={changePage}
-      />
     </div>
   );
 }

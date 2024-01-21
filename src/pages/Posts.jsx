@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PostForm from "../components/PostForm";
 import PostFilter from '../components/PostFilter';
 import PostList from '../components/PostList';
@@ -10,6 +10,7 @@ import PostService from "../services/PostService";
 import {useFetching} from "../hooks/useFetching";
 import {getPageCount} from "../utils/pages";
 import Pagination from "../components/Ui/pagination/Pagination";
+import {useObserver} from "../hooks/useObserver";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -17,18 +18,22 @@ function Posts() {
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
   const [totalPages, setTotalPages] = useState(0);
-
+  const lastElement = useRef();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
     const response = await PostService.queryPosts(limit, page);
-    setPosts(response.data);
+    setPosts([...posts, ...response.data]);
     setTotalPages(getPageCount(response.headers['x-total-count'], limit));
+  });
+
+  useObserver(page, lastElement, page < totalPages, isPostsLoading, () => {
+    setPage(page + 1);
   });
 
   useEffect(() => {
     fetchPosts(limit, page);
-  }, []);
+  }, [page]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -41,7 +46,6 @@ function Posts() {
 
   const changePage = (page) => {
     setPage(page);
-    fetchPosts(limit, page);
   };
 
   return (
@@ -60,10 +64,9 @@ function Posts() {
       {postError &&
         <h1 style={{textAlign:'center', marginTop: '15px'}}>Error hapened!!! <br/> {postError}</h1>
       }
-      {isPostsLoading
-        ? <Loader />
-        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Posts list:' />
-      }
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Posts list:' />
+      <div ref={lastElement} style={{height:'20px',background:'red'}}></div>
+      {isPostsLoading && <Loader /> }
       <Pagination
         totalPages={totalPages}
         page={page}
